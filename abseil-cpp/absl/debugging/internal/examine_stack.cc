@@ -171,6 +171,8 @@ void* GetProgramCounter(void* const vuc) {
       return reinterpret_cast<void*>(context->uc_mcontext.gregs[14]);
 #elif defined(__ia64__)
     return reinterpret_cast<void*>(context->uc_mcontext.sc_ip);
+#elif defined(__loongarch64)
+    return reinterpret_cast<void*>(context->uc_mcontext.sc_pc);
 #elif defined(__m68k__)
     return reinterpret_cast<void*>(context->uc_mcontext.gregs[16]);
 #elif defined(__mips__)

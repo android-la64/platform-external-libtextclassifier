@@ -121,6 +121,18 @@ double UnscaledCycleClock::Frequency() {
   return aarch64_timer_frequency;
 }
 
+#elif defined(__loongarch64)
+
+int64_t UnscaledCycleClock::Now() {
+  int64_t virtual_timer_value;
+  asm volatile("rdtime %0" : "=r"(virtual_timer_value));
+  return virtual_timer_value;
+}
+
+double UnscaledCycleClock::Frequency() {
+  return base_internal::NominalCPUFrequency();
+}
+
 #elif defined(__riscv)
 
 int64_t UnscaledCycleClock::Now() {
